@@ -1,0 +1,30 @@
+from collections import deque
+
+def is_valid(state):
+    m_left, c_left, m_right, c_right = state
+    return (m_left == 0 or m_left >= c_left) and (m_right == 0 or m_right >= c_right)
+
+def bfs():
+    initial_state = (3, 3, 0, 0)  # (missionaries left, cannibals left, missionaries right, cannibals right)
+    queue = deque([(initial_state, [])])
+    visited = set()
+
+    while queue:
+        state, path = queue.popleft()
+        if state == (0, 0, 3, 3):
+            return path + [state]
+
+        if state in visited:
+            continue
+        visited.add(state)
+
+        m_left, c_left, m_right, c_right = state
+        for m, c in [(1, 0), (0, 1), (1, 1), (2, 0), (0, 2)]:
+            new_state = (m_left - m, c_left - c, m_right + m, c_right + c)
+            if is_valid(new_state):
+                queue.append((new_state, path + [state]))
+
+    return None
+
+solution = bfs()
+print("BFS Solution:", solution)
