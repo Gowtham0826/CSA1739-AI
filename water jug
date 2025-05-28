@@ -1,0 +1,35 @@
+from collections import deque
+
+def water_jug_bfs(capacity_a, capacity_b, target):
+    visited = set()
+    queue = deque([(0, 0)])  # Start with both jugs empty
+
+    while queue:
+        a, b = queue.popleft()
+
+        if (a, b) in visited:
+            continue
+        visited.add((a, b))
+
+        if a == target or b == target:
+            return True
+
+        # Fill Jug A
+        queue.append((capacity_a, b))
+        # Fill Jug B
+        queue.append((a, capacity_b))
+        # Empty Jug A
+        queue.append((0, b))
+        # Empty Jug B
+        queue.append((a, 0))
+        # Pour A into B
+        pour_to_b = min(a, capacity_b - b)
+        queue.append((a - pour_to_b, b + pour_to_b))
+        # Pour B into A
+        pour_to_a = min(b, capacity_a - a)
+        queue.append((a + pour_to_a, b - pour_to_a))
+
+    return False
+
+# Example usage
+print(water_jug_bfs(4, 3, 2))  # Output: True
