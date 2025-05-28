@@ -1,0 +1,11 @@
+def alphabeta(node, a, b, maxP): 
+    if type(node) == int: 
+        return node 
+    if maxP: 
+        return max(alphabeta(c, a, b, False) for c in node) 
+    else: 
+        return min(alphabeta(c, a, b, True) for c in node) 
+ 
+tree = [[3,5,6],[2,[0,-1],4],[1,2]] 
+ 
+print(alphabeta(tree, float('-inf'), float('inf'), True)) 
