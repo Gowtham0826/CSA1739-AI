@@ -1,0 +1,10 @@
+rooms = {'A': 'Dirty', 'B': 'Dirty'} 
+loc = 'A' 
+ 
+for _ in range(4): 
+    if rooms[loc] == 'Dirty': 
+        print("Location", loc + ":", "Suck") 
+        rooms[loc] = 'Clean' 
+    else: 
+        print("Location", loc + ":", "Clean") 
+    loc = 'B' if loc == 'A' else 'A'  
