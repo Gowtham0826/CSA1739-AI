@@ -1,0 +1,18 @@
+def print_board(q): 
+    for row in q: 
+        line = ['.'] * 8 
+        line[row] = 'Q' 
+        print(' '.join(line)) 
+    print() 
+ 
+def solve(q=[], row=0): 
+    if row == 8: 
+        print_board(q) 
+        return True 
+    for col in range(8): 
+        if all(col != c and abs(row - r) != abs(col - c) for r, c in enumerate(q)): 
+            if solve(q + [col], row + 1): 
+                return True 
+ 
+solve() 
+ 
